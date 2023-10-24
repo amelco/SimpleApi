@@ -14,7 +14,7 @@ namespace SimpleApi.Repositories
             Abre(sql);
         }
 
-        public T? Query<T>(Func<SqlDataReader,T> funcao)
+        public T? Query<T>(Func<SqlDataReader, T> funcao)
         {
             if (_comando is null)
                 return default(T);
@@ -29,7 +29,7 @@ namespace SimpleApi.Repositories
             var retorno = funcao(_reader);
 
             Fecha();
-            
+
             return retorno;
         }
 
@@ -45,6 +45,11 @@ namespace SimpleApi.Repositories
             return true;
         }
 
+        // TODO: substituir sql string por sql command. Dessa forma, passamos parametros e evitamos sql injections
+        // ==> private void Abre(SqlCommand sqlCommand, string[] parametros, object[] valores)
+        //                                              \----------------||-----------------/
+        //                                                               \/
+        //                                          Construir uma classe para isso (SqlParametros)
         private void Abre(string sql)
         {
             try
