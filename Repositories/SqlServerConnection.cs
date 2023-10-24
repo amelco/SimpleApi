@@ -9,9 +9,9 @@ namespace SimpleApi.Repositories
         private SqlCommand? _comando;
         private SqlDataReader? _reader;
 
-        public SqlServerConnection(string sql)
+        public SqlServerConnection(SqlCommand sqlCommand)
         {
-            Abre(sql);
+            Abre(sqlCommand);
         }
 
         public T? Query<T>(Func<SqlDataReader, T> funcao)
@@ -45,12 +45,13 @@ namespace SimpleApi.Repositories
             return true;
         }
 
-        // TODO: substituir sql string por sql command. Dessa forma, passamos parametros e evitamos sql injections
+        // TODO: substituir sqlCommand string por sqlCommand command. Dessa forma, passamos parametros e evitamos sqlCommand injections
         // ==> private void Abre(SqlCommand sqlCommand, string[] parametros, object[] valores)
         //                                              \----------------||-----------------/
         //                                                               \/
         //                                          Construir uma classe para isso (SqlParametros)
-        private void Abre(string sql)
+        //private void Abre(string sqlCommand)
+        private void Abre(SqlCommand cmd)
         {
             try
             {
@@ -62,12 +63,12 @@ namespace SimpleApi.Repositories
                 }
                 _conexao.Open();
                 //Console.WriteLine("Abriu conexao!");
-                var cmd = new SqlCommand(sql, _conexao);
-                if (cmd == null)
-                {
-                    return;
-                }
-                cmd.Parameters.Clear();
+                //var cmd = new SqlCommand(sqlCommand, _conexao);
+                //if (cmd == null)
+                //{
+                //    return;
+                //}
+                //cmd.Parameters.Clear();
                 _comando = cmd;
             }
             catch
