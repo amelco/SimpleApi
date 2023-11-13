@@ -62,6 +62,7 @@ namespace SimpleApi.Repositories
                     return;
                 }
                 _conexao.Open();
+                cmd.Connection = _conexao;
                 //Console.WriteLine("Abriu conexao!");
                 //var cmd = new SqlCommand(sqlCommand, _conexao);
                 //if (cmd == null)
